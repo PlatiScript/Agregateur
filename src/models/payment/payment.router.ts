@@ -71,38 +71,37 @@ paymentRouter.post('/', function(req, res) {
 
 /**
  * @swagger
- * /payment/getCompanySold:
- *   post:
- *     description: Get company sold
- *     produces:
- *       - application/json
+ * /payment/getCompanySold/{id}:
+ *   get:
  *     tags:
  *       - Payments
+ *     produces:
+ *       - application/json
  *     parameters:
- *       - id: GetPayment
- *         description: GetPayment object
- *         in:  body
+ *       - name: id
+ *         in: path
  *         required: true
- *         type: string
- *         schema:
- *           $ref: '#/definitions/GetPayment'
+ *         type: number
  *     responses:
  *       200:
- *         description: Company sold
+ *         description: payment
+ *         schema:
+ *           type: payment
  */
-paymentRouter.post('/getCompanySold', function(req, res) {
+paymentRouter.get('/getCompanySold/:id', function(req, res) {
+    const id: number = parseInt(req.params.id, 10);
+
     soap.createClient(PaymentAPIURl, function (err : any, client : any) {
         if (err){
             throw err;
         }
         var args = {
-            id: req.body.id
+            id: id
         }
         client.getSoldCompagnie(args, function (err : any, response : any) {
             if (err)
                 throw err;
             // print the service returned result
-            console.log(res)
             return res.status(200).send({ data:response});
         });
     });

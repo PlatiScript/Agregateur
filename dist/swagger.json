@@ -86,30 +86,28 @@
         }
       }
     },
-    "/payment/getCompanySold": {
-      "post": {
-        "description": "Get company sold",
-        "produces": [
-          "application/json"
-        ],
+    "/payment/getCompanySold/{id}": {
+      "get": {
         "tags": [
           "Payments"
         ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
-            "id": "GetPayment",
-            "description": "GetPayment object",
-            "in": "body",
+            "name": "id",
+            "in": "path",
             "required": true,
-            "type": "string",
-            "schema": {
-              "$ref": "#/definitions/GetPayment"
-            }
+            "type": "number"
           }
         ],
         "responses": {
           "200": {
-            "description": "Company sold"
+            "description": "payment",
+            "schema": {
+              "type": "payment"
+            }
           }
         }
       }
