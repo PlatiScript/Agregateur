@@ -155,6 +155,11 @@
     },
     "/payment": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Payments"
         ],
@@ -193,6 +198,11 @@
     },
     "/payment/getCompanySold/{id}": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Payments"
         ],
@@ -219,6 +229,11 @@
     },
     "/payment/createCompany": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "description": "Create Company",
         "produces": [
           "application/json"

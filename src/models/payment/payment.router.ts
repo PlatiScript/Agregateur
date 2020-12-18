@@ -60,6 +60,8 @@ const PaymentAPIURl = "https://safe-shore-86002.herokuapp.com/wsdl/Paiement.wsdl
  *
  * /payment:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Payments
  *     description: Creates a Payment
@@ -109,6 +111,8 @@ paymentRouter.post('/', auth, function (req, res) {
  * @swagger
  * /payment/getCompanySold/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Payments
  *     produces:
@@ -149,6 +153,8 @@ paymentRouter.get('/getCompanySold/:id', auth, function (req, res) {
  * @swagger
  * /payment/createCompany:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     description: Create Company
  *     produces:
  *       - application/json
