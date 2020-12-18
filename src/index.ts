@@ -41,8 +41,11 @@ declare const module : WebpackHotModule;
      * App Variables
      */
 
+    if (!process.env.PORT) {
+        process.exit(1);
+    }
 
-    const PORT: number = parseInt("7000", 10);
+    const PORT: number = parseInt(process.env.PORT as string, 10);
 
     const app = express();
 

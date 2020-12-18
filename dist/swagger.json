@@ -8,6 +8,11 @@
   "paths": {
     "/cars": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "description": "Return all cars",
         "produces": [
           "application/json"
@@ -24,6 +29,11 @@
     },
     "/flights/planes": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "description": "Return all planes",
         "produces": [
           "application/json"
@@ -40,6 +50,11 @@
     },
     "/flights": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "description": "Return all flights",
         "produces": [
           "application/json"
@@ -56,6 +71,11 @@
     },
     "/hotels": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "description": "get all hotels",
         "produces": [
           "application/json"

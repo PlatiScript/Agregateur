@@ -35,7 +35,7 @@ hotelsRouteur.get('/', auth, async (req, res) => {
       return {
         id: element.Id,
         name: element.Name,
-        descritpion: element.Descritpion,
+        description: element.Descritpion,
         address: element.Address,
         price: element.Price,
         room_max: element.Room_max,
