@@ -90,6 +90,48 @@
         }
       }
     },
+    "/hotels/reservations": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "get all reservations",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Hotels"
+        ],
+        "responses": {
+          "200": {
+            "description": "reservations"
+          }
+        }
+      }
+    },
+    "/hotels/destinations": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "get all destinations",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Hotels"
+        ],
+        "responses": {
+          "200": {
+            "description": "destinations"
+          }
+        }
+      }
+    },
     "/payment": {
       "post": {
         "tags": [

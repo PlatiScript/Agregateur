@@ -50,7 +50,77 @@ hotelsRouteur.get('/', auth, async (req, res) => {
   } catch (error) {
     res.sendStatus(500);
   }
-    
-      
+});
 
+/**
+ * @swagger
+ * /hotels/reservations:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     description: get all reservations
+ *     produces:
+ *       - application/json
+ *     tags:
+ *       - Hotels
+ *     responses:
+ *       200:
+ *         description: reservations
+ */
+hotelsRouteur.get('/reservations', auth, async (req, res) => { 
+  try {
+    let arrayReturned = [];
+    let array1 = await axios.get('https://watihotelapi.azurewebsites.net/watiHotel');
+
+    arrayReturned = array1.data.Reservations.map((element : any) => {
+      return {
+        id: element.Id,
+        date_start: element.Date_start,
+        date_end: element.Date_end,
+        hotel: element.Hotel,
+        status: element.Status,
+        company: "Wati Hotel"
+      }
+    });
+
+    res.status(200).send(arrayReturned);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
+/**
+ * @swagger
+ * /hotels/destinations:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     description: get all destinations
+ *     produces:
+ *       - application/json
+ *     tags:
+ *       - Hotels
+ *     responses:
+ *       200:
+ *         description: destinations
+ */
+hotelsRouteur.get('/destinations', auth, async (req, res) => { 
+  try {
+    let arrayReturned = [];
+    let array1 = await axios.get('https://watihotelapi.azurewebsites.net/watiHotel');
+
+    arrayReturned = array1.data.Destinations.map((element : any) => {
+      return {
+        id: element.Id,
+        city: element.City,
+        country: element.Country,
+        image: element.Image,
+        company: "Wati Hotel"
+      }
+    });
+
+    res.status(200).send(arrayReturned);
+  } catch (error) {
+    res.sendStatus(500);
+  }
 });
