@@ -72,32 +72,38 @@
     },
     "/payment": {
       "post": {
-        "description": "Post payment",
-        "produces": [
-          "application/json"
-        ],
         "tags": [
           "Payments"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "description": "UUID of the company",
-            "in": "body",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "valeur",
-            "description": "Payment Amount",
-            "in": "body",
-            "required": true,
-            "type": "number"
-          }
+        "description": "Creates a Payment",
+        "produces": [
+          "application/json"
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "description": "payment",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "valeur"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "valeur": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "Payment"
+            "description": "Payments created"
           }
         }
       }
@@ -191,6 +197,40 @@
           "type": "string"
         }
       }
+    },
+    "NewPayment": {
+      "type": "object",
+      "required": [
+        "id",
+        "valeur"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "valeur": {
+          "type": "number"
+        }
+      }
+    },
+    "Payment": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/NewPayment"
+        },
+        {
+          "required": [
+            "id"
+          ]
+        },
+        {
+          "properties": null,
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ]
     }
   },
   "components": {},
