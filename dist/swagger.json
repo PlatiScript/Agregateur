@@ -7,7 +7,7 @@
   },
   "paths": {
     "/cars": {
-      "post": {
+      "get": {
         "description": "Return all cars",
         "produces": [
           "application/json"
@@ -55,7 +55,7 @@
       }
     },
     "/hotels": {
-      "post": {
+      "get": {
         "description": "get all hotels",
         "produces": [
           "application/json"

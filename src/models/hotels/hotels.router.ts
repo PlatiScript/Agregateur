@@ -14,7 +14,7 @@ export const hotelsRouteur = express.Router();
 /**
  * @swagger
  * /hotels:
- *   post:
+ *   get:
  *     description: get all hotels
  *     produces:
  *       - application/json
@@ -24,13 +24,12 @@ export const hotelsRouteur = express.Router();
  *       200:
  *         description: hotels
  */
-hotelsRouteur.get('/', async (req, res) => { 
+hotelsRouteur.get('/', auth, async (req, res) => { 
   try {
     let arrayReturned = [];
+    let array1 = await axios.get('https://watihotelapi.azurewebsites.net/watiHotel');
 
-    let array1 = await axios.get('http://watihotelapi.azurewebsites.net/watiHotel');
-
-    arrayReturned = array1.Hotels.map((element : any) => {
+    arrayReturned = array1.data.Hotels.map((element : any) => {
       return {
         id: element.Id,
         name: element.Name,
@@ -47,7 +46,7 @@ hotelsRouteur.get('/', async (req, res) => {
 
     res.status(200).send(arrayReturned);
   } catch (error) {
-    
+    res.sendStatus(500);
   }
     
       

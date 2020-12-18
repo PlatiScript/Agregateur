@@ -14,7 +14,7 @@ export const carsRouter = express.Router();
 /**
  * @swagger
  * /cars:
- *   post:
+ *   get:
  *     description: Return all cars
  *     produces:
  *       - application/json
@@ -24,7 +24,7 @@ export const carsRouter = express.Router();
  *       200:
  *         description: cars
  */
-carsRouter.get('/', async (req, res) => {
+carsRouter.get('/', auth, async (req, res) => {
   try {
     let carArrayReturned = [];
 

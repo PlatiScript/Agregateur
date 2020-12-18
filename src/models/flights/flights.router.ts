@@ -24,7 +24,7 @@ export const flightsRouter = express.Router();
  *       200:
  *         description: planes
  */
-flightsRouter.get('/planes', async (req, res) => {
+flightsRouter.get('/planes', auth, async (req, res) => {
   let planeArrayReturned = [];
 
   try {
@@ -74,7 +74,7 @@ flightsRouter.get('/planes', async (req, res) => {
  *       200:
  *         description: flights
  */
-flightsRouter.get('/', async (req, res) => {
+flightsRouter.get('/', auth, async (req, res) => {
   let flightsArrayReturned = [];
 
   try {
