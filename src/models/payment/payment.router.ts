@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 
 import express, { Request, Response } from "express";
 var soap = require('soap');
-
+import { v1 as uuidv1 } from "uuid";
 /**
  * Router Definition
  */
@@ -20,37 +20,67 @@ var soap = require('soap');
  *     properties:
  *       id:
  *         type: string
- *
- *
  */
+
+/**
+ * Controller Definitions
+ */
+/**
+ * @swagger
+ *
+ * definitions:
+ *   NewPayment:
+ *     type: object
+ *     required:
+ *       - id
+ *       - valeur
+ *     properties:
+ *       id:
+ *         type: string
+ *       valeur:
+ *         type: number
+ *   Payment:
+ *     allOf:
+ *       - $ref: '#/definitions/NewPayment'
+ *       - required:
+ *         - id
+ *       - properties:
+ *         id:
+ *           type: integer
+ *           format: int64
+ */
+
 export const paymentRouter = express.Router();
 
 const PaymentAPIURl = "https://safe-shore-86002.herokuapp.com/wsdl/Paiement.wsdl";
-//TEST UUI COMPANY = "ce633276-4110-11eb-b378-0242ac130002"
 
 /**
  * @swagger
+ *
  * /payment:
  *   post:
- *     description: Post payment
- *     produces:
- *       - application/json
  *     tags:
  *       - Payments
- *     parameters:
- *       - name: id
- *         description: UUID of the company
- *         in: body
- *         required: true
- *         type: string
- *       - name: valeur
- *         description: Payment Amount
- *         in: body
- *         required: true
- *         type: number
+ *     description: Creates a Payment
+ *     produces:
+ *       - application/json
+ *     requestBody:
+ *         content:
+ *            application/json:
+ *              description: payment
+ *              schema:
+ *               type: object
+ *               required:
+ *                     - id
+ *                     - valeur
+ *               properties:
+ *                   id:
+ *                          type: string
+ *                   valeur:
+ *                          type: number
  *     responses:
  *       200:
- *         description: Payment
+ *         description: Payments created
  */
 paymentRouter.post('/', function(req, res) {
     soap.createClient(PaymentAPIURl, function (err : any, client : any) {
@@ -89,14 +119,13 @@ paymentRouter.post('/', function(req, res) {
  *           type: payment
  */
 paymentRouter.get('/getCompanySold/:id', function(req, res) {
-    const id: number = parseInt(req.params.id, 10);
 
     soap.createClient(PaymentAPIURl, function (err : any, client : any) {
         if (err){
             throw err;
         }
         var args = {
-            id: id
+            id: req.params.id
         }
         client.getSoldCompagnie(args, function (err : any, response : any) {
             if (err)
@@ -126,7 +155,9 @@ paymentRouter.get('/createCompany', function(req, res) {
         if (err){
             throw err;
         }
-        var uuid = "ce633276-4110-11eb-b378-0242ac1"+(Math.floor(Math.random()*90000) + 10000).toString();
+        var uuid = uuidv1();
+        //var uuid = "f32dfca0-4131-11eb-b378-0242ac130002";
+
         var args = {
             id: uuid
         }
