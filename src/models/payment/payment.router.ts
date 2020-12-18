@@ -129,13 +129,15 @@ paymentRouter.post('/', auth, function (req, res) {
  *         description: error
  */
 paymentRouter.get('/getCompanySold/:id', auth, function (req, res) {
+    const id: number = parseInt(req.params.id, 10);
+
     try {
         soap.createClient(PaymentAPIURl, function (err: any, client: any) {
             if (err) {
                 throw err;
             }
             var args = {
-                id: req.params.id
+                id: id
             }
             client.getSoldCompagnie(args, function (err: any, response: any) {
                 if (err)
