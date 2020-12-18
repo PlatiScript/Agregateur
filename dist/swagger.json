@@ -27,6 +27,27 @@
         }
       }
     },
+    "/cars/reservations": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Return all reservations",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cars"
+        ],
+        "responses": {
+          "200": {
+            "description": "reservations"
+          }
+        }
+      }
+    },
     "/flights/planes": {
       "get": {
         "security": [
