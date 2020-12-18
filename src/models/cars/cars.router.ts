@@ -15,6 +15,8 @@ export const carsRouter = express.Router();
  * @swagger
  * /cars:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     description: Return all cars
  *     produces:
  *       - application/json

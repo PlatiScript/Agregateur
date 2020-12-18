@@ -15,6 +15,8 @@ export const hotelsRouteur = express.Router();
  * @swagger
  * /hotels:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     description: get all hotels
  *     produces:
  *       - application/json

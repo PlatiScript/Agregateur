@@ -15,6 +15,8 @@ export const flightsRouter = express.Router();
  * @swagger
  * /flights/planes:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     description: Return all planes
  *     produces:
  *       - application/json
@@ -65,6 +67,8 @@ flightsRouter.get('/planes', auth, async (req, res) => {
  * @swagger
  * /flights:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     description: Return all flights
  *     produces:
  *       - application/json

@@ -52,6 +52,15 @@ declare const module : WebpackHotModule;
     const options = {
         definition: {
             openapi: "3.0.0",
+            components: {
+                securitySchemes: {
+                  bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                  }
+                }
+              },
             info: {
                 title: "Beautiful Car API",
                 version: "1.0.2",
