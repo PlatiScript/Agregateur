@@ -125,8 +125,8 @@ paymentRouter.post('/', auth, function (req, res) {
  *     responses:
  *       200:
  *         description: payment
- *         schema:
- *           type: payment
+ *       500:
+ *         description: error
  */
 paymentRouter.get('/getCompanySold/:id', auth, function (req, res) {
     try {

@@ -219,10 +219,10 @@
         ],
         "responses": {
           "200": {
-            "description": "payment",
-            "schema": {
-              "type": "payment"
-            }
+            "description": "payment"
+          },
+          "500": {
+            "description": "error"
           }
         }
       }
