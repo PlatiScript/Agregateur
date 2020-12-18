@@ -65,14 +65,17 @@ declare const module : WebpackHotModule;
                 }
               },
             info: {
-                title: "Beautiful Car API",
+                title: "Team BS Agregateur",
                 version: "1.0.2",
                 description:
-                    "This is a beautiful car API made with love by Benjamin & Simon"
+                "To launch request with this documentation you need to send a request to /users/login at the end with the credentials admin/admin and then put the token in authorize in the top right corner. After that you will be able to test all of our request within the documentation. To launch request within your app you need to do the same. Note: the 500 internal server error when launching without token is due to heroku."
+            },
+            security:{
+                bearerAuth: [] ,
             },
             servers: [
                 {
-                    url: "http://localhost:7000",
+                    url: "https://ancient-harbor-51591.herokuapp.com",
                 },
             ],
         },
