@@ -6,33 +6,45 @@ var jwt = require('jsonwebtoken');
 import express, { Request, Response } from "express";
 
 /**
+ * @swagger
+ *
+ * definitions:
+ *   User:
+ *     type: object
+ *     required:
+ *       - user
+ *       - password
+ *     properties:
+ *       user:
+ *         type: string
+ *       password:
+ *         type: string
+ */
+
+/**
  * Router Definition
  */
 
 export const usersRouter = express.Router();
+
 /**
  * @swagger
- * /users/login:
- *   post:
- *     description: Login to the application
- *     produces:
- *       - application/json
- *     tags:
- *       - Users
- *     parameters:
- *       - name: user
- *         description: Username to use for login.
- *         in: formData
+ * paths:
+ *   /users/login:
+ *     post:
+ *       summary: Login to the api
+ *       tags:
+ *         - User
+ *       requestBody:
+ *         description: The credentials are admin/admin
  *         required: true
- *         type: string
- *       - name: password
- *         description: User's password.
- *         in: formData
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/definitions/User'
+ *       responses:
+ *         '201':
+ *           description: User
  */
 usersRouter.post('/login', function(req, res) {
     if(req.body.user === "admin" && req.body.password === "admin"){

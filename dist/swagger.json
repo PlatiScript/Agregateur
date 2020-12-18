@@ -169,32 +169,24 @@
     },
     "/users/login": {
       "post": {
-        "description": "Login to the application",
-        "produces": [
-          "application/json"
-        ],
+        "summary": "Login to the api",
         "tags": [
-          "Users"
+          "User"
         ],
-        "parameters": [
-          {
-            "name": "user",
-            "description": "Username to use for login.",
-            "in": "formData",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "password",
-            "description": "User's password.",
-            "in": "formData",
-            "required": true,
-            "type": "string"
+        "requestBody": {
+          "description": "The credentials are admin/admin",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
           }
-        ],
+        },
         "responses": {
-          "200": {
-            "description": "login"
+          "201": {
+            "description": "User"
           }
         }
       }
@@ -208,6 +200,21 @@
       ],
       "properties": {
         "id": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "required": [
+        "user",
+        "password"
+      ],
+      "properties": {
+        "user": {
+          "type": "string"
+        },
+        "password": {
           "type": "string"
         }
       }
