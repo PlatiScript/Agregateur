@@ -54,7 +54,7 @@ carsRouter.get('/', async (req, res) => {
           brand: element.marque,
           description: "",
           dailyPrice: 100,
-          companyName: "YannigJeremAuto"
+          company: "YannigJeremAuto"
       }
     });
 
@@ -66,14 +66,14 @@ carsRouter.get('/', async (req, res) => {
         brand: element.brand,
         description: element.description,
         dailyPrice: element.dailyPrice,
-        companyName: "Tesla"
+        company: "Team BS Car"
     }
-    }))]
+    }))];
 
     res.status(200).send(carArrayReturned);
 
   } catch (error) {
-
+    res.sendStatus(404);
   }
 });
 

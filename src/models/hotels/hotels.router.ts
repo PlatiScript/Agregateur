@@ -24,24 +24,32 @@ export const hotelsRouteur = express.Router();
  *       200:
  *         description: hotels
  */
-hotelsRouteur.get('/hotels', function(req, res) { 
+hotelsRouteur.get('/', async (req, res) => { 
+  try {
+    let arrayReturned = [];
 
+    let array1 = await axios.get('http://watihotelapi.azurewebsites.net/watiHotel');
 
-    axios.get('http://watihotelapi.azurewebsites.net/watiHotel')
-      .then((response1: { data: any; }) => {
-        axios.get('http://watihotelapi.azurewebsites.net/watiHotel', {
-           
-          })
-          .then((response2: { data: any; }) => {
+    arrayReturned = array1.Hotels.map((element : any) => {
+      return {
+        id: element.Id,
+        name: element.Name,
+        descritpion: element.Descritpion,
+        address: element.Address,
+        price: element.Price,
+        room_max: element.Room_max,
+        image: element.Image,
+        destination: element.Destination,
+        disponibilites: element.Disponibilites,
+        company: "Wati Hotel"
+      }
+    });
+
+    res.status(200).send(arrayReturned);
+  } catch (error) {
     
-            res.status(200).send({ data:response1.data});
-              
-            })
-
-        })
-      .catch((error: any) => {
-        console.error(error)
-      })
-
+  }
+    
+      
 
 });

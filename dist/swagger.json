@@ -22,8 +22,8 @@
         }
       }
     },
-    "/planes": {
-      "post": {
+    "/flights/planes": {
+      "get": {
         "description": "Return all planes",
         "produces": [
           "application/json"
@@ -34,6 +34,22 @@
         "responses": {
           "200": {
             "description": "planes"
+          }
+        }
+      }
+    },
+    "/flights": {
+      "get": {
+        "description": "Return all flights",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Flight"
+        ],
+        "responses": {
+          "200": {
+            "description": "flights"
           }
         }
       }
