@@ -11,6 +11,7 @@ import { usersRouter } from "./models/users/users.router";
 import { flightsRouter } from "./models/flights/flights.router";
 import { hotelsRouteur } from "./models/hotels/hotels.router";
 import { carsRouter } from "./models/cars/cars.router";
+import {paymentRouter} from "./models/payment/payment.router";
 
 /**
  * Webpack HMR Activation
@@ -59,7 +60,7 @@ declare const module : WebpackHotModule;
             },
             servers: [
                 {
-                    url: "http://mysterious-eyrie-25660.herokuapp.com",
+                    url: "http://localhost:7000",
                 },
             ],
         },
@@ -78,6 +79,7 @@ declare const module : WebpackHotModule;
     app.use("/hotels", hotelsRouteur);
     app.use("/users", usersRouter);
     app.use("/cars", carsRouter);
+    app.use("/payment", paymentRouter);
 
     app.use(
         "/api-docs",

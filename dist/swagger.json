@@ -38,6 +38,85 @@
         }
       }
     },
+    "/payment": {
+      "post": {
+        "description": "Post payment",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Payments"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "UUID of the company",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "valeur",
+            "description": "Payment Amount",
+            "in": "body",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment"
+          }
+        }
+      }
+    },
+    "/payment/getCompanySold": {
+      "post": {
+        "description": "Get company sold",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Payments"
+        ],
+        "parameters": [
+          {
+            "id": "GetPayment",
+            "description": "GetPayment object",
+            "in": "body",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/GetPayment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company sold"
+          }
+        }
+      }
+    },
+    "/payment/createCompany": {
+      "get": {
+        "description": "Create Company",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Payments"
+        ],
+        "responses": {
+          "200": {
+            "description": "Created company"
+          },
+          "500": {
+            "description": "error"
+          }
+        }
+      }
+    },
     "/users/login": {
       "post": {
         "description": "Login to the application",
@@ -67,6 +146,19 @@
           "200": {
             "description": "login"
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GetPayment": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
         }
       }
     }
