@@ -6,264 +6,36 @@
     "description": "Description"
   },
   "paths": {
-    "/cars": {
-      "get": {
-        "tags": [
-          "Cars"
-        ],
-        "description": "Returns cars",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "cars",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Car"
-              }
-            }
-          }
-        }
-      },
+    "/planes": {
       "post": {
-        "tags": [
-          "Cars"
-        ],
-        "description": "Creates a car",
+        "description": "Return all planes",
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "name": "car",
-            "description": "Car object",
-            "in": "body",
-            "required": true,
-            "type": "string",
-            "schema": {
-              "$ref": "#/definitions/NewCar"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "cars",
-            "schema": {
-              "$ref": "#/definitions/Car"
-            }
-          }
-        }
-      },
-      "put": {
-        "description": "Update a existing car",
         "tags": [
-          "Cars"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "car",
-            "description": "Car object",
-            "in": "body",
-            "required": true,
-            "type": "string",
-            "schema": {
-              "$ref": "#/definitions/NewCar"
-            }
-          }
+          "Flight"
         ],
         "responses": {
           "200": {
-            "description": "Cars",
-            "schema": {
-              "$ref": "#/definitions/Cars"
-            }
+            "description": "planes"
           }
         }
       }
     },
-    "/cars/{id}": {
-      "get": {
-        "tags": [
-          "Cars"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Car",
-            "schema": {
-              "type": "Car",
-              "item": {
-                "$ref": "#/definitions/Car"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Cars"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/reservations": {
-      "get": {
-        "description": "Returns reservations",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "reservations",
-            "schema": {
-              "type": "array",
-              "reservations": {
-                "$ref": "#/definitions/Reservation"
-              }
-            }
-          }
-        },
-        "tags": [
-          "Reservation"
-        ]
-      },
+    "/hotels": {
       "post": {
-        "description": "Creates a reservation",
+        "description": "get all hotels",
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "name": "reservation",
-            "description": "Reservation object",
-            "in": "body",
-            "required": true,
-            "type": "string",
-            "schema": {
-              "$ref": "#/definitions/NewReservation"
-            }
-          }
+        "tags": [
+          "Hotels"
         ],
         "responses": {
           "200": {
-            "description": "reservations",
-            "schema": {
-              "$ref": "#/definitions/Reservation"
-            }
+            "description": "hotels"
           }
-        },
-        "tags": [
-          "Reservation"
-        ]
-      },
-      "put": {
-        "description": "Update an existing reservation",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "reservation",
-            "description": "Reservation object",
-            "in": "body",
-            "required": true,
-            "type": "string",
-            "schema": {
-              "$ref": "#/definitions/NewReservation"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "reservations",
-            "schema": {
-              "$ref": "#/definitions/Reservation"
-            }
-          }
-        },
-        "tags": [
-          "Reservation"
-        ]
-      }
-    },
-    "/reservations/{id}": {
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "reservation",
-            "schema": {
-              "type": "reservation",
-              "reservation": {
-                "$ref": "#/definitions/Reservation"
-              }
-            }
-          }
-        },
-        "tags": [
-          "Reservation"
-        ]
-      },
-      "delete": {
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        },
-        "tags": [
-          "Reservation"
-        ]
+        }
       }
     },
     "/users/login": {
@@ -297,88 +69,6 @@
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "NewCar": {
-      "type": "object",
-      "required": [
-        "immat",
-        "name",
-        "brand",
-        "description"
-      ],
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "price": {
-          "type": "string"
-        },
-        "brand": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        }
-      }
-    },
-    "Car": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/NewCar"
-        },
-        {
-          "required": [
-            "id"
-          ]
-        },
-        {
-          "properties": null,
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      ]
-    },
-    "NewReservation": {
-      "type": "object",
-      "required": [
-        "carId",
-        "begin",
-        "end"
-      ],
-      "properties": {
-        "carId": {
-          "type": "number"
-        },
-        "begin": {
-          "type": "date"
-        },
-        "end": {
-          "type": "date"
-        }
-      }
-    },
-    "Reservation": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/NewReservation"
-        },
-        {
-          "required": [
-            "id"
-          ]
-        },
-        {
-          "properties": null,
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      ]
     }
   },
   "components": {},

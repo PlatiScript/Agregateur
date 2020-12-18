@@ -5,13 +5,12 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import { carsRouter } from "./models/cars/cars.router";
-import { reservationsRouter } from "./models/reservations/reservations.router";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import { db as mysql } from "./config/mysql.config"
-import { databaseTableInitialization, databaseForeignJeyInitialization, databseDataInitialization } from "./models/db.init";
 import { usersRouter } from "./models/users/users.router";
+import { flightsRouter } from "./models/flights/flights.router";
+import { hotelsRouteur } from "./models/hotels/hotels.router";
+import { carsRouter } from "./models/cars/cars.router";
 
 /**
  * Webpack HMR Activation
@@ -40,11 +39,9 @@ declare const module : WebpackHotModule;
     /**
      * App Variables
      */
-    if (!process.env.PORT) {
-        process.exit(1);
-    }
 
-    const PORT: number = parseInt(process.env.PORT as string, 10);
+
+    const PORT: number = parseInt("7000", 10);
 
     const app = express();
 
@@ -77,28 +74,19 @@ declare const module : WebpackHotModule;
     app.use(helmet());
     app.use((req, res, next) => { next(); }, cors());
     app.use(express.json());
-    app.use("/cars", carsRouter);
+    app.use("/flights", flightsRouter);
+    app.use("/hotels", hotelsRouteur);
     app.use("/users", usersRouter);
-    app.use("/reservations", reservationsRouter);
+    app.use("/cars", carsRouter);
+
     app.use(
         "/api-docs",
         swaggerUi.serve,
         swaggerUi.setup(specs)
     );
 
-    /**
-     * Database initialization
-     */
-    databaseTableInitialization();
-    databaseForeignJeyInitialization();
-    if (process.env.ENVIRONMENT == "dev") {
-        await mysql.instance.sync({ force: true });
-    }
-    else {
-        mysql.instance.sync();
-    }
-    databseDataInitialization();
 
+    
     /**
      * Server Activation
      */
