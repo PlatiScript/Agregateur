@@ -78,14 +78,11 @@ declare const module : WebpackHotModule;
     app.use("/hotels", hotelsRouteur);
     app.use("/users", usersRouter);
     app.use("/cars", carsRouter);
-
     app.use(
         "/api-docs",
         swaggerUi.serve,
         swaggerUi.setup(specs)
     );
-
-
     
     /**
      * Server Activation

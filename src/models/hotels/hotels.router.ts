@@ -35,7 +35,7 @@ hotelsRouteur.get('/hotels', function(req, res) {
           .then((response2: { data: any; }) => {
     
             res.status(200).send({ data:response1.data});
-
+              
             })
 
         })

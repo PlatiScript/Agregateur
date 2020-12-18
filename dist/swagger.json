@@ -6,6 +6,22 @@
     "description": "Description"
   },
   "paths": {
+    "/cars": {
+      "post": {
+        "description": "Return all cars",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cars"
+        ],
+        "responses": {
+          "200": {
+            "description": "cars"
+          }
+        }
+      }
+    },
     "/planes": {
       "post": {
         "description": "Return all planes",

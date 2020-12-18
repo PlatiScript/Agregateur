@@ -13,83 +13,67 @@ import auth from '../../middleware/Auth';
 export const carsRouter = express.Router();
 /**
  * @swagger
- * /planes:
+ * /cars:
  *   post:
- *     description: Return all planes
+ *     description: Return all cars
  *     produces:
  *       - application/json
  *     tags:
- *       - Flight
+ *       - Cars
  *     responses:
  *       200:
- *         description: planes
+ *         description: cars
  */
-carsRouter.get('/cars', function(req, res) { 
+carsRouter.get('/', async (req, res) => {
+  try {
+    let carArrayReturned = [];
 
+    const carArray1  = await axios.get('https://webservicecar.herokuapp.com/cars/all', {
+      headers: {
+        'Api-Token': `ZPDpXWyKDeavzEDXtMHip89eGN9gSuRzasoDrTc9vKo27YIxJ9`
+      }
+    });
 
-    axios.get('https://webservicecar.herokuapp.com/cars/all',{
-        headers: {
-          'Api-Token': `ZPDpXWyKDeavzEDXtMHip89eGN9gSuRzasoDrTc9vKo27YIxJ9`
-        }
-      })
-      .then((response1: { data: any; }) => {
+    const dataToken = await axios.post('https://mysterious-eyrie-25660.herokuapp.com/users/login',
+      {
+        'user': 'admin',
+        'password': 'admin'
+      });
 
-        axios.post('https://mysterious-eyrie-25660.herokuapp.com/users/login', 
-        {
-            'user':'admin',
-            'password':'admin'
-        })
-        .then((response: { data: any; }) => {
-            axios.get('https://mysterious-eyrie-25660.herokuapp.com/cars',{
-                headers: {
-                  'Authorization': `Bearer `+response.data.token 
-                }
-              })
-              .then((response4: { data: any; }) => {
-                res.status(200).send({ data:response4.data});
-
-                })
-              .catch((error: any) => {
-                console.error(error)
-              })
-
-          })
-        .catch((error: any) => {
-          console.error(error)
-        })
-      
-        })
-      .catch((error: any) => {
-        console.error(error)
-      })
-
-
-});
-/**
- * @swagger
- * /planes:
- *   post:
- *     description: Return all planes
- *     produces:
- *       - application/json
- *     tags:
- *       - Flight
- *     responses:
- *       200:
- *         description: planes
- */
-carsRouter.post('/cars', function(req, res) { 
-
-    axios.post('https://webservicecar.herokuapp.com/cars/rentals/setrental?customerName=Wati&carId=1&departureDate=27/09/2020&arrivalDate=27/10/2020price=250 ', 
-    {
-        'user':'admin',
-        'password':'admin'
+    const carArray2 = await axios.get('https://mysterious-eyrie-25660.herokuapp.com/cars', {
+      headers: {
+        'Authorization': `Bearer ` + dataToken.data.token
+      }
     })
-    .then((response: { data: any; }) => {
-        
-      })
-    .catch((error: any) => {
-      console.error(error)
-    })
-  
+
+    carArrayReturned = carArray1.data._embedded.carList.map((element : any) => {
+      return {
+          id: element.id,
+          immat: "XX-XXX-XX",
+          name: element.name,
+          brand: element.marque,
+          description: "",
+          dailyPrice: 100,
+          companyName: "YannigJeremAuto"
+      }
+    });
+
+    carArrayReturned = [...carArrayReturned, ...(carArray2.data.map((element : any) => {
+      return {
+        id: element.id,
+        immat: element.immat,
+        name: element.name,
+        brand: element.brand,
+        description: element.description,
+        dailyPrice: element.dailyPrice,
+        companyName: "Tesla"
+    }
+    }))]
+
+    res.status(200).send(carArrayReturned);
+
+  } catch (error) {
+
+  }
 });
+

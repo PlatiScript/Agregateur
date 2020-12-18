@@ -24,82 +24,55 @@ export const flightsRouter = express.Router();
  *       200:
  *         description: planes
  */
-flightsRouter.get('/planes', function(req, res) { 
+flightsRouter.get('/planes', async (req, res) => {
+  const array1 = await axios.get('https://trivaphp.herokuapp.com/api/planes', {
+    headers: {
+      'Api-Token': `ZPDpXWyKDeavzEDXtMHip89eGN9gSuRzasoDrTc9vKo27YIxJ9`
+    }
+  });
+  const array2 = await axios.get('https://tp-api-rest-service-avion.herokuapp.com/index.php/api/planes', {})
 
+  console.log(array2.data['hydra:member']);
 
-    axios.get('https://trivaphp.herokuapp.com/api/planes', {
-        headers: {
-          'Api-Token': `ZPDpXWyKDeavzEDXtMHip89eGN9gSuRzasoDrTc9vKo27YIxJ9`
-        }
-      })
-      .then((response1: { data: any; }) => {
-        axios.get('https://tp-api-rest-service-avion.herokuapp.com/index.php/api/planes?page=1', {
-           
-          })
-          .then((response2: { data: any; }) => {
-    
-            res.status(200).send({ data:response1.data});
-
-            })
-
-        })
-      .catch((error: any) => {
-        console.error(error)
-      })
-
-
+  res.status(200).send(array1.data);
 });
 
-flightsRouter.get('/flights', function(req, res) { 
+flightsRouter.get('/flights', function (req, res) {
 
 
-    axios.get('https://trivaphp.herokuapp.com/api/flights', {
-        headers: {
-          'Api-Token': `ZPDpXWyKDeavzEDXtMHip89eGN9gSuRzasoDrTc9vKo27YIxJ9`
-        }
-      })
-      .then((response1: { data: any; }) => {
-        res.status(200).send({ data:response1.data});
-
-
-        })
-      .catch((error: any) => {
-        console.error(error)
-      })
-
-
-});
-flightsRouter.get('/reserve', function(req, res) { 
-
-
-    axios.post('https://trivaphp.herokuapp.com/api/reservations/add', {
-        headers: {
-            'Api-Token': `ZPDpXWyKDeavzEDXtMHip89eGN9gSuRzasoDrTc9vKo27YIxJ9`
-          },
-        'buyer_name' : "peter le bg",
-        'flight_id': 5
-      })
-      .then((response1: { data: any; }) => {
-        res.status(200).send({ data:response1.data});
-
-
-        })
-      .catch((error: any) => {
-        console.error(error)
-      })
-
-
-});
-
-
-axios.post('https://trivaphp.herokuapp.com/api/reservations/add', 
-{
-    'buyer_name':'admin',
-    'password':'admin'
-})
-.then((response: { data: any; }) => {
-    
+  axios.get('https://trivaphp.herokuapp.com/api/flights', {
+    headers: {
+      'Api-Token': `ZPDpXWyKDeavzEDXtMHip89eGN9gSuRzasoDrTc9vKo27YIxJ9`
+    }
   })
-.catch((error: any) => {
-  console.error(error)
-})
+    .then((response1: { data: any; }) => {
+      res.status(200).send({ data: response1.data });
+
+
+    })
+    .catch((error: any) => {
+      console.error(error)
+    })
+
+
+});
+
+flightsRouter.get('/reserve', function (req, res) {
+  axios.post('https://trivaphp.herokuapp.com/api/reservations/add', {
+    headers: {
+      'Api-Token': `ZPDpXWyKDeavzEDXtMHip89eGN9gSuRzasoDrTc9vKo27YIxJ9`
+    },
+    'buyer_name': "peter le bg",
+    'flight_id': 5
+  })
+    .then((response1: { data: any; }) => {
+      res.status(200).send({ data: response1.data });
+
+
+    })
+    .catch((error: any) => {
+      console.error(error)
+    })
+
+
+});
