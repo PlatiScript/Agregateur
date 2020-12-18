@@ -6,6 +6,7 @@ var jwt = require('jsonwebtoken');
 import express, { Request, Response } from "express";
 var soap = require('soap');
 import { v1 as uuidv1 } from "uuid";
+import auth from '../../middleware/Auth';
 /**
  * Router Definition
  */
@@ -82,21 +83,26 @@ const PaymentAPIURl = "https://safe-shore-86002.herokuapp.com/wsdl/Paiement.wsdl
  *       200:
  *         description: Payments created
  */
-paymentRouter.post('/', function(req, res) {
-    soap.createClient(PaymentAPIURl, function (err : any, client : any) {
-        if (err){
-            throw err;
-        }
-        var args = {
-            id: req.body.id,
-            valeur: req.body.valeur
-        }
-        client.addPayement(args, function (err : any, response : any) {
-            if (err)
+paymentRouter.post('/', auth, function (req, res) {
+    try {
+        soap.createClient(PaymentAPIURl, function (err: any, client: any) {
+            if (err) {
                 throw err;
-            return res.status(200).send({ data:response});
+            }
+            var args = {
+                id: req.body.id,
+                valeur: req.body.valeur
+            }
+            client.addPayement(args, function (err: any, response: any) {
+                if (err)
+                    throw err;
+                return res.status(200).send({ data: response });
+            });
         });
-    });
+    }
+    catch (error) {
+        return res.sendStatus(500);
+    }
 });
 
 /**
@@ -118,22 +124,26 @@ paymentRouter.post('/', function(req, res) {
  *         schema:
  *           type: payment
  */
-paymentRouter.get('/getCompanySold/:id', function(req, res) {
-
-    soap.createClient(PaymentAPIURl, function (err : any, client : any) {
-        if (err){
-            throw err;
-        }
-        var args = {
-            id: req.params.id
-        }
-        client.getSoldCompagnie(args, function (err : any, response : any) {
-            if (err)
+paymentRouter.get('/getCompanySold/:id', auth, function (req, res) {
+    try {
+        soap.createClient(PaymentAPIURl, function (err: any, client: any) {
+            if (err) {
                 throw err;
-            // print the service returned result
-            return res.status(200).send({ data:response});
+            }
+            var args = {
+                id: req.params.id
+            }
+            client.getSoldCompagnie(args, function (err: any, response: any) {
+                if (err)
+                    throw err;
+                // print the service returned result
+                return res.status(200).send({ data: response });
+            });
         });
-    });
+    }
+    catch (error) {
+        return res.sendStatus(500);
+    }
 });
 /**
  * @swagger
@@ -150,22 +160,27 @@ paymentRouter.get('/getCompanySold/:id', function(req, res) {
  *       500:
  *         description: error
  */
-paymentRouter.get('/createCompany', function(req, res) {
-    soap.createClient(PaymentAPIURl, function (err : any, client : any) {
-        if (err){
-            throw err;
-        }
-        var uuid = uuidv1();
-        //var uuid = "f32dfca0-4131-11eb-b378-0242ac130002";
-
-        var args = {
-            id: uuid
-        }
-        client.newCompagnie(args, function (err : any, response : any) {
-            if (err)
+paymentRouter.get('/createCompany', auth, function (req, res) {
+    try {
+        soap.createClient(PaymentAPIURl, function (err: any, client: any) {
+            if (err) {
                 throw err;
+            }
+            var uuid = uuidv1();
+            //var uuid = "f32dfca0-4131-11eb-b378-0242ac130002";
 
-            return res.status(200).send({ data:response, UUID: uuid});
-        })
-    });
+            var args = {
+                id: uuid
+            }
+            client.newCompagnie(args, function (err: any, response: any) {
+                if (err)
+                    throw err;
+
+                return res.status(200).send({ data: response, UUID: uuid });
+            })
+        });
+    }
+    catch (error) {
+        return res.sendStatus(500);
+    }
 });
